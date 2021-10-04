@@ -25,18 +25,21 @@ export class App extends Component {
 
   render() {
     return (
+      <>
       <div className='App-header'>
         {this.state.textData.map(text => (
-          <div>
+          <div className="div-box">
             <p key={text.id}> {text.text} </p>
-            <img
+            <img className="img-show"
               alt='Just'
               src={require(`./image/${text.image}`).default}
               style={{ width: `80px` }}
             ></img>
           </div>
         ))}
-      </div>
+        </div>
+
+        </>
     );
   }
 }
