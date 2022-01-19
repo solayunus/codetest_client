@@ -1,52 +1,32 @@
 import './App.css';
+import React, {useState} from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-// import ttech from './image/ttech.png';
+import Login from './pages/Login';
+import Dashboard from "./pages/Dashboard";
+import Preferences from "./pages/Preferences";
 
-import React, { Component } from 'react'
-
-
-export class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      textData: [],
-    };
+const App = () => {
+  const [token, setToken] = useState();
+  if(!token) {
+    return <Login setToken={setToken} />
   }
-
-  //https://codetestbackendapi.herokuapp.com/api/get
-  //http://localhost:5000/api/get
-
-  componentDidMount() {
-    fetch('https://codetestbackendapi.herokuapp.com/api/get')
-      .then(respone => respone.json())
-      .then(data => this.setState({ textData: data }));
-  }
-
-  render() {
-    return (
-      <>
-        <div className='App-header'>
-          {this.state.textData.map(text => (
-            <div className='div-box'>
-              {/* <p key={text.id} > {text.text} </p> */}
-              <div
-                key={text.id}
-                dangerouslySetInnerHTML={{ __html: text.text }}
-              ></div>
-              {/* <img className="img-show"
-              alt='Just'
-              src={require(`./image/${text.image}`).default}
-              style={{ width: `80px` }}
-            ></img> */}
-            </div>
-          ))}
-        </div>
-      </>
-    );
-  }
+  return (
+    <div className="wrapper">
+        <h1>Application</h1>
+        <Router>
+          <Routes>
+            <Route path="/dashboard" exact element={<Dashboard />} />
+            <Route path="/preferences" element={<Preferences />} /> 
+          </Routes>
+        </Router>
+    </div>
+  );
+ 
 }
 
-export default App
+
+
+export default App;
 
 
